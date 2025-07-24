@@ -1,24 +1,24 @@
 const products = [
   {
-    name: 'cherry',
+    name: "cherry",
     price: .70,
     quantity: 0,
     productId: 1,
-    image: 'starter/src/images/cherry.jpg'
+    image: "starter/src/images/cherry.jpg"
   },
   {
-    name: 'orange',
+    name: "orange",
     price: .60,
     quantity: 0,
     productId: 2,
-    image: 'starter/src/images/orange.jpg'
+    image: "starter/src/images/orange.jpg"
   },
   {
-    name: 'strawberry',
+    name: "strawberry",
     price: .50,
     quantity: 0,
     productId: 3,
-    image: 'starter/src/images/strawberry.jpg'
+    image: "starter/src/images/strawberry.jpg"
   },
 ];
 
