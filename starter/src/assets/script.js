@@ -26,9 +26,14 @@ let cart = [];
 let totalPaid = 0;
 let lastCartTotal = 0;
 
+// Finds and returns a product from the products array by its ID
+function getProductById(productId) {
+  return products.find(item => item.productId === productId);
+}
 
+// Adds a product to the cart or increases its quantity if already present
 function addProductToCart(productId) {
-  const product = products.find(item => item.productId === productId);
+  const product = getProductById(productId);
   const existingCartItem = cart.find(item => item.productId === productId);
 
   if (existingCartItem) {
@@ -39,6 +44,7 @@ function addProductToCart(productId) {
   }
 }
 
+// Increases the quantity of an existing item in the cart
 function increaseQuantity(productId) {
   const existingCartItem = cart.find(item => item.productId === productId);
   if (existingCartItem) {
@@ -46,7 +52,7 @@ function increaseQuantity(productId) {
   }
 }
 
-
+// Removes a product completely from the cart
 function removeProductFromCart(productId) {
   const existingCartItemIndex = cart.findIndex(item => item.productId === productId);
 
@@ -56,6 +62,7 @@ function removeProductFromCart(productId) {
   }
 }
 
+// Decreases the quantity of an item in the cart, removing it if quantity reaches 0
 function decreaseQuantity(productId) {
   const existingCartItemIndex = cart.findIndex(item => item.productId === productId);
 
@@ -68,7 +75,7 @@ function decreaseQuantity(productId) {
   }
 }
 
-
+// Calculates and returns the total price of all items in the cart
 function cartTotal() {
   let total = 0;
   cart.forEach(existingCartItem => {
@@ -78,17 +85,20 @@ function cartTotal() {
   return total;
 }
 
-
+// Processes payment and returns change, empties cart when fully paid
 function pay(amount) {
-  const currentCartTotal = cartTotal();
-  if (currentCartTotal !== lastCartTotal) {
-    totalPaid = 0;
-    lastCartTotal = currentCartTotal;
-  }
   totalPaid += amount;
-  return totalPaid - currentCartTotal;
+  const remainingBalance = totalPaid - cartTotal();
+
+  if (remainingBalance >= 0) {
+    totalPaid = 0;
+    emptyCart();
+  }
+
+  return remainingBalance;
 }
 
+// Clears all items from the cart
 function emptyCart() {
   cart.length = 0;
 }
